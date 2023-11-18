@@ -6,23 +6,15 @@ import { GlobalStyle } from "./GlobalStyle";
 import { Notification } from "./Notification/Notification";
 
 export const App = () => {
+  const [data, setData] = useState({ good: 0, neutral: 0, bad: 0 });
+  const { good, neutral, bad } = data;
 
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
-
-    setGood(prevState => prevState + 1);
-    setNeutral(prevState => prevState + 1);
-    setBad(prevState => prevState + 1);
-
-
-  // const onLeaveFeedback = (option) => {
-  //   setGood(prevState => prevState + 1);
-  // }
+  const onLeaveFeedback = option => {
+    setData(prevState =>({...prevState, [option]: prevState[option]+1}));
+  }
 
     const countTotalFeedback = () => {
       return good + neutral + bad;
-
     };
     
     const countPositiveFeedbackPercentage = () => {
@@ -34,11 +26,10 @@ export const App = () => {
   const total = countTotalFeedback();
   const positivePercentage = countPositiveFeedbackPercentage();
 
-  
-    return (
+  return (
       <>
         <Section title="Please leave feedback">
-          <FeedbackOptions options={[good, neutral, bad]} onLeaveFeedback={onLeaveFeedback} />
+          <FeedbackOptions options={Object.keys(data)} onLeaveFeedback={onLeaveFeedback} />
         </Section>
 
         <Section title="Statistics">
