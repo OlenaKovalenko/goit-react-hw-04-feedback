@@ -10,21 +10,11 @@ export const App = () => {
   const { good, neutral, bad } = data;
 
   const onLeaveFeedback = option => {
-    setData(prevState =>({...prevState, [option]: prevState[option]+1}));
+    setData(prevState =>({...prevState, [option]: prevState[option] + 1}));
   }
 
-    const countTotalFeedback = () => {
-      return good + neutral + bad;
-    };
-    
-    const countPositiveFeedbackPercentage = () => {
-      const total = countTotalFeedback();
-      const percentage = good ? (100 * good / total) : 0;
-      return Math.round(percentage);
-    }
-      
-  const total = countTotalFeedback();
-  const positivePercentage = countPositiveFeedbackPercentage();
+  const total = good + neutral + bad;
+  const positivePercentage = good ? Math.round(100 * good / total) : 0;
 
   return (
       <>
